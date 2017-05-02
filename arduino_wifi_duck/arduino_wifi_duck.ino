@@ -8,6 +8,12 @@ String last = "";
 
 int defaultDelay = 0;
 
+void Menu()
+{
+  Keyboard.press(KEY_LEFT_SHIFT);
+  Keyboard.press(KEY_F10);
+}
+
 void Line(String _line)
 {
   int firstSpace = _line.indexOf(" ");
@@ -49,19 +55,19 @@ void Line(String _line)
   delay(defaultDelay);
 }
 
-
 void Press(String b){
   if(b.length() == 1) Keyboard.press(char(b[0]));
   else if (b.equals("ENTER")) Keyboard.press(KEY_RETURN);
   else if (b.equals("CTRL")) Keyboard.press(KEY_LEFT_CTRL);
   else if (b.equals("SHIFT")) Keyboard.press(KEY_LEFT_SHIFT);
   else if (b.equals("ALT")) Keyboard.press(KEY_LEFT_ALT);
-  else if (b.equals("GUI")) Keyboard.press(KEY_LEFT_GUI);
+  else if (b.equals("ALTGR")) Keyboard.press(KEY_RIGHT_ALT);
+  else if (b.equals("GUI") || b.equals("WINDOWS")) Keyboard.press(KEY_LEFT_GUI);
   else if (b.equals("UP") || b.equals("UPARROW")) Keyboard.press(KEY_UP_ARROW);
   else if (b.equals("DOWN") || b.equals("DOWNARROW")) Keyboard.press(KEY_DOWN_ARROW);
   else if (b.equals("LEFT") || b.equals("LEFTARROW")) Keyboard.press(KEY_LEFT_ARROW);
   else if (b.equals("RIGHT") || b.equals("RIGHTARROW")) Keyboard.press(KEY_RIGHT_ARROW);
-  else if (b.equals("DELETE")) Keyboard.press(KEY_DELETE);
+  else if (b.equals("DELETE") || b.equals("DEL")) Keyboard.press(KEY_DELETE);
   else if (b.equals("PAGEUP")) Keyboard.press(KEY_PAGE_UP);
   else if (b.equals("PAGEDOWN")) Keyboard.press(KEY_PAGE_DOWN);
   else if (b.equals("HOME")) Keyboard.press(KEY_HOME);
@@ -83,7 +89,8 @@ void Press(String b){
   else if (b.equals("F11")) Keyboard.press(KEY_F11);
   else if (b.equals("F12")) Keyboard.press(KEY_F12);
   else if (b.equals("SPACE")) Keyboard.press(' ');
-  //else Serial.println("not found :'"+b+"'("+String(b.length())+")");
+  else if (b.equals("MENU")) Menu();
+  else Serial.println("Not found:'"+b+"'("+String(b.length())+")");
 }
 
 void setup() {
@@ -127,4 +134,3 @@ void loop() {
     Serial.println("done");
   }
 }
-

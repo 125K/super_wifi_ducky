@@ -12,6 +12,7 @@ void Menu()
 {
   Keyboard.press(KEY_LEFT_SHIFT);
   Keyboard.press(KEY_F10);
+  Keyboard.releaseAll();
 }
 
 void Line(String _line)

@@ -107,7 +107,7 @@ void setup() {
 
 void loop() {
   if(ExternSerial.available()) {
-    bufferStr = ExternSerial.readStringUntil("END");
+    bufferStr = ExternSerial.readStringUntil('\n');
     Serial.println(bufferStr);
   }
   

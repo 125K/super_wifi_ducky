@@ -1,7 +1,10 @@
-# Wi-Fi Ducky
+# Super Wi-Fi Ducky
 Upload, save and run keystroke injections remotely with an ESP8266 + ATmega32u4
 
-|| New keys added: ALTGR, MENU, WINDOWS, DEL, CAPS and REPEAT.
+## Modifications
+### New keys and functions
+<b>STRING.</b> *(STRING + ENTER)*, <b>RIBBONS</b> *(Comand line: "start C:/Windows/System32/Ribbons.scr /s")*, <b>CMD</b> *(Opens CMD)*, <b>CMDUAC</b> *(Opens CMD bypassing the UAC)*, <b>DESKTOP</b> *(Comand line: "cd %userprofile%/Desktop")*, <b>WINDIR</b> *(Comand line: "cd %windir%)*, <b>TMP</b> *(Comand line: cd %tmp%)*, <b>USER</b> *(Comand line: "cd %userprofile%)*, <b>PLAY_PAUSE</b> *(Media control)*, <b>PREV</b> *(Media control)*, <b>NEXT</b> *(Media control)*, <b>VOLDOWN</b> *(Media control)*, <b>VOLUP</b> *(Media control)*, <b>MUTE</b> *(Media control)*, <b>SHUTDOWN</b> *(Key)*, <b>SLEEP</b> *(Key)*, <b>WAKEUP</b> *(PoC) (Key)*, <b>ALTGR</b>, <b>MENU</b>, <b>WINDOWS</b> *(= GUI)*, <b>DEL</b> *(= DELETE)*, <b>CAPS</b> *(= CAPSLOCK)* and <b>REPEAT</b> *(= REPLAY)*.
+</br><b>readStringUntil error solved</b>
 
 ![image of my DIY Wi-Fi Duck](https://raw.githubusercontent.com/spacehuhn/wifi_ducky/master/images/my_wifi_duck.jpg)
 

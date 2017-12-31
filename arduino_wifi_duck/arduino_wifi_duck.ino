@@ -1,6 +1,7 @@
-#include <Keyboard.h>
-#define BAUD_RATE 57200
+#include <HID-Project.h>
+#include <HID-Settings.h>
 
+#define BAUD_RATE 57600
 #define ExternSerial Serial1
 
 String bufferStr = "";
@@ -8,12 +9,72 @@ String last = "";
 
 int defaultDelay = 0;
 
-void Menu()
+// ================================================= SHORTCUTS =================================================
+
+void MENU()
 {
   Keyboard.press(KEY_LEFT_SHIFT);
   Keyboard.press(KEY_F10);
   Keyboard.releaseAll();
 }
+
+void CMD()
+{
+  Keyboard.press(KEY_LEFT_GUI);
+  Keyboard.press('r');
+  Keyboard.releaseAll();
+  delay(600);
+  Keyboard.print("cmd");
+  delay(50);
+  Keyboard.press(KEY_RETURN);
+}
+
+void CMDUAC()
+{
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press(KEY_ESC);
+  Keyboard.releaseAll();
+  delay(800);
+  Keyboard.print("cmd");
+  delay(1000);
+  Keyboard.press(KEY_LEFT_CTRL);
+  Keyboard.press(KEY_LEFT_SHIFT);
+  Keyboard.press(KEY_RETURN);
+  Keyboard.releaseAll();
+  delay(1400);
+  Keyboard.press(KEY_LEFT_ALT);
+  Keyboard.press('y');
+  Keyboard.releaseAll();
+}
+
+void RIBBONS() {
+  Keyboard.print("start C:/Windows/System32/Ribbons.scr /s");
+  Keyboard.press(KEY_RETURN);
+}
+
+// ======================================== SHORTCUTS: ENVIRONMENT VARS ========================================
+
+void DESKTOP() {
+  Keyboard.print("cd %userprofile%/Desktop");
+  Keyboard.press(KEY_RETURN);
+}
+
+void WINDIR() {
+  Keyboard.print("cd %windir%");
+  Keyboard.press(KEY_RETURN);
+}
+
+void TMP() {
+  Keyboard.print("cd %windir%");
+  Keyboard.press(KEY_RETURN);
+}
+
+void USER() {
+  Keyboard.print("cd %userprofile%");
+  Keyboard.press(KEY_RETURN);
+}
+
+// =============================================================================================================
 
 void Line(String _line)
 {
@@ -21,6 +82,9 @@ void Line(String _line)
   if(firstSpace == -1) Press(_line);
   else if(_line.substring(0,firstSpace) == "STRING"){
     for(int i=firstSpace+1;i<_line.length();i++) Keyboard.write(_line[i]);
+  }
+  else if(_line.substring(0,firstSpace) == "STRING."){
+    for(int i=firstSpace+1;i<_line.length();i++) Keyboard.write(_line[i]); Keyboard.press(KEY_RETURN);
   }
   else if(_line.substring(0,firstSpace) == "DELAY"){
     int delaytime = _line.substring(firstSpace + 1).toInt();
@@ -90,7 +154,36 @@ void Press(String b){
   else if (b.equals("F11")) Keyboard.press(KEY_F11);
   else if (b.equals("F12")) Keyboard.press(KEY_F12);
   else if (b.equals("SPACE")) Keyboard.press(' ');
-  else if (b.equals("MENU")) Menu();
+
+  // SHORTCUTS
+  
+  else if (b.equals("MENU")) MENU();
+  else if (b.equals("RIBBONS")) RIBBONS();
+  else if (b.equals("CMD")) CMD();
+  else if (b.equals("CMDUAC")) CMDUAC();
+
+  // ENVIRONMENT VARIABLES
+
+  else if (b.equals("DESKTOP")) DESKTOP();
+  else if (b.equals("WINDIR")) WINDIR();
+  else if (b.equals("TMP")) TMP();
+  else if (b.equals("USER")) USER();
+
+  // MEDIA
+
+  else if (b.equals("PLAY_PAUSE")) Consumer.write(MEDIA_PLAY_PAUSE);
+  else if (b.equals("PREV")) Consumer.write(MEDIA_PREVIOUS);
+  else if (b.equals("NEXT")) Consumer.write(MEDIA_NEXT);
+  else if (b.equals("VOLDOWN")) Consumer.write(MEDIA_VOLUME_DOWN);
+  else if (b.equals("VOLUP")) Consumer.write(MEDIA_VOLUME_UP);
+  else if (b.equals("MUTE")) Consumer.write(MEDIA_VOLUME_MUTE);
+  
+  // POWER
+  
+  else if (b.equals("SHUTDOWN")) System.write(SYSTEM_POWER_DOWN);
+  else if (b.equals("SLEEP")) System.write(SYSTEM_SLEEP);
+  else if (b.equals("WAKEUP")) System.write(SYSTEM_WAKE_UP);
+  
   else Serial.println("Not found:'"+b+"'("+String(b.length())+")");
 }
 
@@ -98,9 +191,10 @@ void setup() {
   
   Serial.begin(BAUD_RATE);
   ExternSerial.begin(BAUD_RATE);
-
-  pinMode(13,OUTPUT);
-  digitalWrite(13,HIGH);
+// 11 -> 0
+// 10 -> EN
+  pinMode(10,OUTPUT);
+  digitalWrite(10,HIGH);
 
   Keyboard.begin();
 }

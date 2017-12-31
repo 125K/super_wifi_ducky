@@ -191,10 +191,9 @@ void setup() {
   
   Serial.begin(BAUD_RATE);
   ExternSerial.begin(BAUD_RATE);
-// 11 -> 0
-// 10 -> EN
-  pinMode(10,OUTPUT);
-  digitalWrite(10,HIGH);
+  
+  pinMode(13,OUTPUT);
+  digitalWrite(13,HIGH);
 
   Keyboard.begin();
 }
